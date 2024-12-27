@@ -1,0 +1,88 @@
+# Regras e Documentação do Projeto NokTech/The-Liar-Crow
+
+1. Always respond in Português Brasil.
+2. Sempre utilize a logica aplicada no contexto.
+3. Nunca suponha nada, na duvida consulte o codigo da codebase.
+
+## Estrutura do Projeto
+
+- `data/`: Diretório para dados
+  - `raw/`: Dados brutos para treinamento
+  - `processed/`: Dados processados e tokenizados
+  - `cache/`: Cache de datasets e modelos
+- `models/`: Modelos treinados
+- `exports/`: Modelos exportados em GGUF
+- `scripts/`: Código fonte principal
+- `typings/`: Stubs de tipo para bibliotecas
+
+## Configuração
+
+- Uso de `config.json` para todas as configurações
+- Validação via Pydantic em `scripts/config.py`
+- Modelos devem incluir pelo menos um baseado em Mistral
+- Suporte para múltiplos modelos de treinamento
+
+## Padrões de Código
+
+- Tipagem estática com mypy
+- Documentação em português do Brasil
+- Logging estruturado
+- Tratamento de erros com mensagens claras
+
+## Modelos e Treinamento
+
+- Foco em modelos públicos do Hugging Face
+- Uso de LoRA para fine-tuning eficiente
+- Suporte para quantização (4-bit, 8-bit)
+- Exportação para formato GGUF
+
+## Regras de Validação
+
+1. Modelos devem conter "Mistral" no nome
+2. FP16 não pode ser usado com quantização 4-bit/8-bit
+3. Quantização 4-bit e 8-bit não podem ser usadas juntas
+4. Configurações devem seguir os schemas Pydantic
+
+## Fluxo de Dados
+
+1. Dados brutos em `data/raw/`
+2. Processamento e tokenização
+3. Cache em `data/processed/`
+4. Treinamento com LoRA
+5. Exportação para GGUF
+
+## Ambiente
+
+- Python 3.10+
+- CUDA para GPU
+- Dependências em `requirements.txt`
+- Token do Hugging Face em `.env`
+
+## Comandos Principais
+
+- `python noktech.py train`: Treina modelos
+- `python noktech.py train --export`: Treina e exporta
+- `python -m pip install -r requirements.txt`: Instala dependências
+
+## Objetivos do Projeto
+
+1. Criar assistente especializado em programação
+2. Otimizar para hardware disponível
+3. Manter código limpo e bem documentado
+4. Facilitar manutenção e extensões futuras
+
+## Convenções de Commit
+
+- feat: Novas funcionalidades
+- fix: Correções de bugs
+- docs: Documentação
+- refactor: Refatorações
+- chore: Manutenção geral
+
+## Próximos Passos
+
+1. Implementar exportação GGUF
+2. Melhorar logging e métricas
+3. Adicionar testes automatizados
+4. Otimizar processamento de dados
+5. Implementar validação de modelos

@@ -1,0 +1,90 @@
+# Arquivos e diretórios Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Ambientes e virtualenvs
+.env
+.venv
+env/
+venv/
+ENV/
+.python-version
+.conda/
+
+# Diretórios de build e distribuição
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime*
+.project
+.pydevproject
+.settings/
+.vs/
+
+# Arquivos específicos do projeto
+data/raw/*
+data/processed/*
+data/cache/*
+models/**/*
+exports/**/*
+*.gguf
+logs/
+*.log
+tensorboard/
+lightning_logs/
+
+# Manter diretórios vazios e estrutura mínima
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/cache/.gitkeep
+!models/.gitkeep
+!exports/.gitkeep
+!models/**/config.json
+!models/**/tokenizer.json
+!models/**/tokenizer_config.json
+!models/**/special_tokens_map.json
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.db
+*.sqlite3
+
+# Arquivos que devem ser mantidos
+!requirements.txt
+!config.json
+!scripts/**
+!typings/**
+!alembic/**
+!alembic.ini
+!mypy.ini
+!.cursorrules
+!README.md
+!LICENSE

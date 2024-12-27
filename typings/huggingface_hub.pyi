@@ -1,0 +1,3 @@
+from typing import Any, Optional
+
+def login(token: Optional[str] = None, **kwargs: Any) -> None: ... 

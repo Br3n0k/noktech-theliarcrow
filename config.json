@@ -1,0 +1,124 @@
+{
+    "model": {
+        "name": "NokTech/The-Liar-Crow-v0.1-GGUF",
+        "description": "Modelo de linguagem especializado em acessoria ao programador Brendown Ferreira",
+        "version": "0.1",
+        "architecture": {
+            "base_model_type": "mistral",
+            "vocab_size": 32000,
+            "hidden_size": 4096,
+            "intermediate_size": 11008,
+            "num_hidden_layers": 32,
+            "num_attention_heads": 32,
+            "max_sequence_length": 2048,
+            "pad_token_id": 0,
+            "bos_token_id": 1,
+            "eos_token_id": 2
+        },
+        "training": {
+            "output_dir": "models",
+            "num_train_epochs": 3,
+            "per_device_train_batch_size": 4,
+            "learning_rate": 2e-5,
+            "weight_decay": 0.01,
+            "warmup_steps": 500,
+            "max_steps": null,
+            "save_steps": 1000,
+            "logging_steps": 100,
+            "gradient_accumulation_steps": 4,
+            "max_grad_norm": 1.0
+        },
+        "optimization": {
+            "use_gradient_checkpointing": true,
+            "use_flash_attention": true,
+            "use_fp16": true,
+            "use_4bit": false,
+            "use_8bit": false,
+            "trust_remote_code": true
+        },
+        "export": {
+            "format": "gguf",
+            "quantization": "q4_k_m",
+            "context_size": 2048
+        }
+    },
+    "training": [
+        {
+            "name": "Open-Orca/Mistral-7B-OpenOrca",
+            "description": "Modelo base Mistral para treinamento inicial",
+            "max_sequence_length": 2048,
+            "optimization": {
+                "use_gradient_checkpointing": true,
+                "use_flash_attention": true,
+                "use_fp16": true,
+                "use_4bit": false,
+                "use_8bit": false,
+                "trust_remote_code": true
+            },
+            "lora": {
+                "r": 8,
+                "alpha": 32,
+                "dropout": 0.05,
+                "target_modules": ["q_proj", "v_proj"]
+            }
+        },
+        {
+            "name": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+            "description": "Modelo TinyLlama otimizado para chat",
+            "max_sequence_length": 2048,
+            "optimization": {
+                "use_gradient_checkpointing": true,
+                "use_flash_attention": true,
+                "use_fp16": false,
+                "use_4bit": true,
+                "use_8bit": false,
+                "trust_remote_code": true
+            },
+            "lora": {
+                "r": 16,
+                "alpha": 64,
+                "dropout": 0.1,
+                "target_modules": ["q_proj", "v_proj", "k_proj", "o_proj"]
+            }
+        }
+    ],
+    "data": {
+        "directories": {
+            "raw": "data/raw",
+            "processed": "data/processed",
+            "cache": "data/cache",
+            "models": "models",
+            "exports": "exports"
+        },
+        "processing": {
+            "shuffle_files": true,
+            "combine_files": true,
+            "overwrite_cache": false,
+            "num_workers": 4,
+            "max_samples_per_file": null,
+            "validation_split": 0.1,
+            "test_split": 0.1
+        },
+        "formats": {
+            "input": ["jsonl", "txt"],
+            "dataset": "arrow"
+        }
+    },
+    "hardware": {
+        "device": "auto",
+        "precision": "auto",
+        "gpu_memory_utilization": 0.9,
+        "cpu_offload": false,
+        "mixed_precision": true
+    },
+    "logging": {
+        "level": "INFO",
+        "save_strategy": "steps",
+        "save_steps": 1000,
+        "save_total_limit": 5,
+        "logging_steps": 100,
+        "log_level": "passive",
+        "report_to": ["tensorboard", "wandb"],
+        "logging_dir": "logs"
+    }
+} 
